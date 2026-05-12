@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Chat AI - SMANDA</title>
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: #0f0f1a; color: white; }
+        .chat-container { height: calc(100vh - 180px); }
+        .message-ai { background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 20px 20px 20px 5px; }
+        .message-user { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 20px 20px 5px 20px; }
+        .glow-input { border: 1px solid rgba(99, 102, 241, 0.3); box-shadow: 0 0 15px rgba(99, 102, 241, 0.1); }
+    </style>
+</head>
+<body class="h-full overflow-hidden">
+    <div class="h-full flex flex-col" style="background: radial-gradient(circle at bottom, #1a1a2e 0%, #0f0f1a 100%);">
+        
+        <nav class="w-full h-16 bg-[#0f0f1a]/90 backdrop-blur-xl border-b border-white/5 flex justify-between items-center px-[5%] z-50">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-indigo-500 flex items-center justify-center">
+                    <i data-lucide="message-square" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="font-bold text-white text-sm tracking-wide">ECO CHAT</span>
+            </div>
+            <div class="flex gap-4">
+                <a href="index.html" class="nav-link">Scan AI</a>
+                <a href="carbon.html" class="nav-link">Kalkulator</a>
+                <a href="chat.html" class="nav-link">Tanya AI</a>
+                <a href="edukasi.html" class="nav-link">Edukasi</a>
+            </div>
+        </nav>
+
+        <div id="chat-box" class="chat-container overflow-y-auto p-5 space-y-4">
+            <div class="flex justify-start">
+                <div class="message-ai p-4 max-w-[80%] text-sm leading-relaxed">
+                    Halo! Aku asisten AI SMANDA. Tanya apa saja soal pengelolaan sampah atau proyek WIBU di sekolah kita! 🌿
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 bg-[#16162a] border-t border-white/5">
+            <div class="relative flex items-center gap-2 max-w-[600px] mx-auto">
+                <input type="text" id="user-input" placeholder="Tanya sesuatu..." 
+                    class="w-full bg-[#1e1e36] text-white text-sm rounded-2xl p-4 pr-12 outline-none glow-input focus:ring-1 focus:ring-indigo-500">
+                <button id="send-btn" class="absolute right-2 p-2 bg-indigo-500 rounded-xl hover:bg-indigo-600 transition">
+                    <i data-lucide="send" class="w-5 h-5 text-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 1. Inisialisasi Icon
+    lucide.createIcons();
+
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    // 2. Pastikan API KEY ini baru dan benar dari Google AI Studio
+    const API_KEY = "AIzaSyAifyNktGVQ7wcSuztL0-oAwZ67R6Irm-g"; 
+    
+    const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=${API_KEY}`;
+    
+    async function sendMessage() {
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        appendMessage(text, 'user');
+        userInput.value = '';
+
+        try {
+            const response = await fetch(URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `Kamu adalah asisten lingkungan hidup di SMANDA Kuningan. Jawablah dengan ramah dan informatif: ${text}`
+                        }]
+                    }]
+                })
+            });
+
+            const data = await response.json();
+
+            // Jika ada error 404 atau 400 dari Google
+            if (data.error) {
+                console.error("Detail Error API:", data.error);
+                appendMessage(`Waduh, ada kendala teknik: ${data.error.message}`, 'ai');
+                return;
+            }
+
+            if (data.candidates && data.candidates[0].content) {
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                appendMessage(aiResponse, 'ai');
+            } else {
+                appendMessage("AI sedang berpikir terlalu keras, coba tanya lagi ya!", 'ai');
+            }
+
+        } catch (e) {
+            console.error("Koneksi Error:", e);
+            appendMessage("Koneksi gagal. Pastikan kamu buka via Live Server (localhost)!", 'ai');
+        }
+    }
+
+    function appendMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+        div.innerHTML = `
+            <div class="${sender === 'user' ? 'message-user' : 'message-ai'} p-4 max-w-[85%] text-sm shadow-xl">
+                ${text}
+            </div>
+        `;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // 3. Cara "Modern" untuk pasang event (Menghindari error CSP yang tadi muncul)
+    sendBtn.addEventListener('click', () => {
+        sendMessage();
+    });
+
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+</script>
+</body>
+</html>

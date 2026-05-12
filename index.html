@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMANDA Waste AI - Scan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <div class="logo-icon">♻️</div> 
+            <div class="logo-text">
+                <span class="main-title">SMANDA Waste</span>
+                <span class="sub-title">Adiwiyata Digital</span>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Scan AI</a>
+            <a href="carbon.html" class="nav-link">Kalkulator</a>
+            <a href="chat.html" class="nav-link">Tanya AI</a>
+            <a href="edukasi.html" class="nav-link">Edukasi</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h2>AI Waste Detector</h2>
+            <p>Arahkan kamera ke objek sampah</p>
+        </header>
+        
+        <div class="video-wrapper">
+            <div class="live-badge"><div class="dot"></div> LIVE</div>
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas" style="display:none;"></canvas>
+        </div>
+        
+        <button id="btnAnalisis">
+            <span>DETEKSI SEKARANG</span>
+        </button>
+        
+        <div id="hasil" class="result-box">
+            <span class="placeholder">Menunggu kamera...</span>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

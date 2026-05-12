@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Calculator - SMANDA</title>
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: #0f0f1a; color: white; }
+        .glow-border { border: 1px solid rgba(99, 102, 241, 0.3); box-shadow: 0 0 30px rgba(99, 102, 241, 0.08); }
+        .glass-card { background: rgba(22, 22, 42, 0.8); backdrop-blur: 12px; }
+        input, select { background: #1e1e36 !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; }
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-full flex flex-col items-center pb-10" style="background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1a 70%);">
+        
+        <nav class="fixed top-0 w-full h-16 bg-[#0f0f1a]/90 backdrop-blur-xl border-b border-white/5 flex justify-between items-center px-[5%] z-50">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
+                </div>
+                <div class="flex flex-col leading-tight">
+                    <span class="font-bold text-white text-sm tracking-wide">CARBON CALC</span>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-[2px]">Eco Impact</span>
+                </div>
+            </div>
+            <div class="flex gap-5">
+                <a href="index.html" class="text-gray-500 text-sm font-medium hover:text-indigo-400">Scan AI</a>
+                <a href="carbon.html" class="text-indigo-400 text-sm font-medium">Kalkulator</a>
+                <a href="chat.html" class="nav-link">Tanya AI</a>
+                 <a href="edukasi.html" class="nav-link">Edukasi</a>
+            </div>
+        </nav>
+
+        <div class="mt-24 w-[90%] max-w-[420px]">
+            <div class="p-8 rounded-3xl glass-card glow-border text-center">
+                <h2 class="text-2xl font-extrabold mb-2 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+                    Eco Tracker
+                </h2>
+                <p class="text-gray-400 text-xs mb-8">Hitung berapa emisi CO₂ yang kamu selamatkan hari ini.</p>
+
+                <div class="mb-8 p-6 bg-[#1e1e36]/50 rounded-2xl border border-white/5">
+                    <span class="text-[10px] text-gray-500 uppercase tracking-[2px]">Total Emisi Dicegah</span>
+                    <div class="flex items-baseline justify-center gap-2 mt-2">
+                        <h1 id="total-carbon" class="text-5xl font-black text-green-400">0.00</h1>
+                        <span class="text-sm text-green-700 font-bold">kgCO₂e</span>
+                    </div>
+                </div>
+
+                <div class="space-y-5 text-left">
+                    <div>
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest ml-1">Kategori Sampah</label>
+                        <select id="type-select" class="w-full mt-1.5 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer">
+                            <option value="2.5">Anorganik (Plastik/Kaleng)</option>
+                            <option value="0.5">Organik (Sisa Makanan)</option>
+                            <option value="1.5">Kertas & Karton</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest ml-1">Berat Sampah (Kg)</label>
+                        <input type="number" id="weight-input" placeholder="Contoh: 1.5" step="0.1" class="w-full mt-1.5 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                    </div>
+
+                    <button id="calc-btn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-500/20 transform transition active:scale-95 flex items-center justify-center gap-2 mt-4">
+                        <i data-lucide="calculator" class="w-5 h-5"></i>
+                        <span>Hitung Dampak</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-5 p-5 rounded-2xl bg-indigo-500/5 border border-indigo-500/10 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="info" class="text-indigo-400 w-6 h-6"></i>
+                </div>
+                <p class="text-[11px] text-gray-400 leading-relaxed">
+                    Setiap <span class="text-indigo-300 font-bold">1 kg plastik</span> yang didaur ulang setara dengan mengurangi emisi berkendara motor sejauh <span class="text-indigo-300 font-bold">12 km</span>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const calcBtn = document.getElementById('calc-btn');
+        const weightInput = document.getElementById('weight-input');
+        const typeSelect = document.getElementById('type-select');
+        const totalDisplay = document.getElementById('total-carbon');
+
+        calcBtn.onclick = () => {
+            const factor = parseFloat(typeSelect.value);
+            const weight = parseFloat(weightInput.value) || 0;
+            
+            if(weight <= 0) {
+                alert("Masukkan berat sampah dulu, Cik!");
+                return;
+            }
+
+            const result = (factor * weight).toFixed(2);
+            
+            // Animasi Angka
+            animateValue(totalDisplay, 0, result, 1000);
+        };
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = (progress * (end - start) + start).toFixed(2);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+</html>
