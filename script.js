@@ -4,7 +4,7 @@ const btn = document.getElementById('btnAnalisis');
 const container = document.querySelector('.container');
 
 // Konfigurasi API
-const GEMINI_API_KEY = "AIzaSyCx3xNpt7OTWMeXSKG6iN8avUR0_OfEZIA";
+const GEMINI_API_KEY = "AIzaSyCBDjmkvxZMl1J0vI3QMXTNe8D-rKtrIeo";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
 
 // Inisialisasi Kamera
