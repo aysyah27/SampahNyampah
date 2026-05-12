@@ -34,22 +34,32 @@
         }
 
         /* Responsive Mobile */
+        /* Responsive Mobile - Perbaikan Konten Kepotong */
         @media (max-width: 768px) {
             nav {
-                height: auto !important;
+                height: auto !important; /* Biar navbar bisa memanjang ke bawah sesuai menu */
                 flex-direction: column;
                 padding: 15px 0 !important;
                 gap: 15px;
+                position: fixed; /* Tetap nempel di atas */
             }
+
             .nav-menu-container {
                 gap: 5px !important;
                 flex-wrap: wrap;
                 justify-content: center;
             }
+
             .nav-link {
-                padding: 6px 12px;
-                font-size: 0.75rem;
+                padding: 6px 10px;
+                font-size: 0.7rem;
             }
+
+            /* INI KUNCINYA: Tambah jarak atas pada pembungkus konten utama */
+            body > div.min-h-full {
+                padding-top: 140px !important; /* Memberi ruang agar judul tidak tertutup navbar */
+            }
+        }
         }
     </style>
 </head>
