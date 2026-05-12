@@ -206,3 +206,43 @@ button:hover {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
 }
+/* --- Perbaikan Navbar untuk Mobile --- */
+@media (max-width: 768px) {
+    .navbar {
+        height: auto; /* Biar tinggi navbar menyesuaikan isi */
+        padding: 10px 5%;
+        flex-direction: column; /* Logo di atas, menu di bawah */
+        gap: 10px;
+    }
+
+    .nav-menu {
+        gap: 15px; /* Jarak antar menu diperkecil */
+        flex-wrap: wrap; /* Supaya menu bisa turun ke bawah jika tidak muat */
+        justify-content: center;
+        width: 100%;
+    }
+
+    .nav-link {
+        font-size: 0.75rem; /* Ukuran teks menu diperkecil sedikit */
+    }
+
+    .main-title {
+        font-size: 0.8rem; /* Ukuran logo teks diperkecil */
+    }
+
+    /* Mengurangi padding body agar container tidak terlalu turun di HP */
+    body {
+        padding-top: 120px; 
+    }
+}
+
+/* Tambahan untuk layar sangat kecil (HP kecil) */
+@media (max-width: 480px) {
+    .nav-menu {
+        gap: 10px;
+    }
+    
+    .nav-link {
+        font-size: 0.7rem;
+    }
+}
