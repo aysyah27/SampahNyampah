@@ -8,11 +8,49 @@
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
+        <style>
         * { font-family: 'Outfit', sans-serif; }
         body { background: #0f0f1a; color: white; scroll-behavior: smooth; }
         .glow-border { border: 1px solid rgba(99, 102, 241, 0.3); box-shadow: 0 0 30px rgba(99, 102, 241, 0.08); }
         .card-gradient { background: linear-gradient(145deg, #16162a, #1a1a2e); }
         .icon-box { background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)); }
+
+        /* --- CSS Navbar Gelembung --- */
+        .nav-link {
+            text-decoration: none;
+            color: #9ca3af; /* Warna text-gray-400 */
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            nav {
+                height: auto !important;
+                flex-direction: column;
+                padding: 15px 0 !important;
+                gap: 15px;
+            }
+            .nav-menu-container {
+                gap: 5px !important;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body class="h-full">
@@ -28,7 +66,7 @@
                     <span class="text-[10px] text-gray-500 uppercase tracking-[2px]">Adiwiyata Guide</span>
                 </div>
             </div>
-            <div class="flex gap-5">
+            <div class="flex gap-5 nav-menu-container">
                 <a href="index.html" class="nav-link">Scan AI</a>
                 <a href="carbon.html" class="nav-link">Kalkulator</a>
                 <a href="chat.html" class="nav-link">Tanya AI</a>
