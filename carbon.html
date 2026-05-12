@@ -13,6 +13,47 @@
         .glow-border { border: 1px solid rgba(99, 102, 241, 0.3); box-shadow: 0 0 30px rgba(99, 102, 241, 0.08); }
         .glass-card { background: rgba(22, 22, 42, 0.8); backdrop-blur: 12px; }
         input, select { background: #1e1e36 !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; }
+
+        /* --- CSS Navbar Gelembung --- */
+        .nav-link {
+            text-decoration: none;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            background: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Perbaikan Mobile agar Konten tidak Terpotong */
+        @media (max-width: 768px) {
+            nav {
+                height: auto !important;
+                flex-direction: column;
+                padding: 15px 0 !important;
+                gap: 15px;
+            }
+            .nav-menu-container {
+                gap: 5px !important;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+            /* Menambah jarak agar Kalkulator tidak tertutup navbar */
+            .main-content-wrapper {
+                padding-top: 150px !important;
+            }
+        }
     </style>
 </head>
 <body class="h-full">
