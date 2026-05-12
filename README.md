@@ -1,5 +1,13 @@
 # SampahNyampah
 
+1. Nur'aysyah 
+2. Sherryn Nurul Haira 
+3. Agni Santika 
+4. M. Gaftan Zakiya
+5. M Nufail Zavier 
+6. Nevan Antonio 
+7. Akhdan Faiq
+
 SampahNyampah adalah ekosistem digital interaktif yang menggabungkan kecerdasan buatan dan manajemen lingkungan untuk mendorong perubahan gaya hidup berkelanjutan. Platform ini dirancang sebagai solusi all-in-one untuk memantau, mengedukasi, dan memberikan dampak nyata terhadap pengurangan emisi karbon melalui pengelolaan limbah yang cerdas.
 
 ## Fitur Unggulan:
